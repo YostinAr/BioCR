@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://wwww.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head">
+        <title>BioCR</title>
+        <meta charset="UTF-8"/>
+     </head>
+    <style type="text/css">
+        
+		body {
+			background-color: #F5F5DC; 
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		form {
+			background-color: #FFFFFF;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px #888888;
+			margin: 0 auto;
+			max-width: 500px;
+			padding: 20px;
+			width: 100%;
+		}
+
+		input[type="text"], input[type="password"] {
+			border: 1px solid #CCCCCC;
+			border-radius: 5px;
+			margin-bottom: 10px;
+			padding: 10px;
+			width: 75%;
+		}
+                
+                input[type="tel"], input[type="telefono"] {
+			border: 1px solid #CCCCCC;
+			border-radius: 5px;
+			margin-bottom: 10px;
+			padding: 10px;
+			width: 100%;
+		}
+                
+                input[type="email"], input[type="email"] {
+			border: 1px solid #CCCCCC;
+			border-radius: 5px;
+			display: block;
+			margin-bottom: 10px;
+			padding: 10px;
+			width: 75%;
+		}
+                
+                input[type="int"], input[type="codigo"] {
+			border: 1px solid #CCCCCC;
+			border-radius: 5px;
+			display: block;
+			margin-bottom: 10px;
+			padding: 10px;
+			width: 25%;
+                        text-align: left;
+		}
+
+		input[type="submit"]
+                        {
+			background-color: #7de3b1;
+			border: none;
+			border-radius: 5px;
+			color: #FFFFFF;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 16px;
+			margin-top: 10px;
+			padding: 10px;
+			width: 25%;
+                        text-align: center;
+		}
+                
+                input[type="button"] {
+			background-color: #B7CDC2;
+			border: none;
+			border-radius: 5px;
+			color: #FFFFFF;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 16px;
+			margin-top: 10px;
+			padding: 10px;
+			width: 25%;
+                        text-align: center;
+		}
+
+		input[type="submit"]:hover, input[type="button"]:hover {
+			background-color: #004E64;
+		}
+
+		.forgot-password {
+			color: #008CBA;
+			cursor: pointer;
+			display: block;
+			font-size: 14px;
+			margin-top: 10px;
+			text-align: right;
+		}
+
+		.cancel {
+			background-color: #B7CDC2;
+			color: #FFFFFF;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 16px;
+			margin-top: 10px;
+			padding: 10px;
+			width: 50%;
+                        text-align: left;
+		}
+
+		.cancel:hover {
+			background-color: #B7CDC2;
+		}
+              
+                .title{
+                        color:#7de3b1;
+
+                         }
+
+                        .lead{
+                        color:#ababab;
+                        }
+                        
+                         .numero{
+                            text-align: right;
+                        }
+             </style>   
+        
+    </style>
+
+  <body>
+    <center> 
+          
+            <header>
+                <nav class="title"  style="font-size: 25px;">
+                    <h1>Biodiversity Preservation CR </h1>
+            
+                <h4>Welcom to ¡Pura Vida!</h4>  
+            </header>
+            <br>
+                   </center>          
+        <div class="container">
+        
+        
+ <form method="POST" th:action="@{/checkout}">
+       
+            <div class="numero"> <p>N.Compra:</p>  </div>
+            <center>
+     <h2>Método de pago</h2>
+     </center><br>
+            <label for="propietario">Nombre del Propietario:</label>
+            <input type="text" id="propietario" name="nombre_propietario" required>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="n_tarjeta">Número de Tarjeta:</label>
+            <input type="int" id="n_tarjeta" name="n_tarjeta" required>
+
+            <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+            <input type="int" id="fecha_vencimiento" name="fecha_vencimiento" required>
+
+            <label for="codigo">Código:</label>
+            <input type="int" id="codigo" name="codigo" required>
+
+            <input type="submit" value="Pagar">
+            
+            <input type="button" class="cancel" value="Cancelar">
+                
+        </form> 
+    </div>
+
+            <footer th:replace="layout/plantilla :: footer"/>
+       
+    </body>
+</html>

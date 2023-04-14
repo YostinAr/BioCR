@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://wwww.thymeleaf.org">
+    <head th:replace="layout/plantilla :: head">
+       <title>Biodiversity Preservation CR</title>
+        <meta charset="UTF-8"/>        
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <link href="/css/menudesplegable.css" rel="stylesheet" type="text/css"/>
+    </head>
+    
+    
+    <body bgcolor="#F5F5DC">
+        <header th:replace="layout/plantilla :: header"/>
+                <center>
+            <header>
+                <nav class="title"  style="font-size: 20px;">
+                    <h1>Biodiversity Preservation CR </h1>
+            
+                <h4>Welcom to ¡Pura Vida!</h4>  
+            </header>
+                    
+            <hr><br><br><br>
+            <section>
+                <div class="row row-cols-2">
+                <article class="redondo">
+                <div class="container ">  
+                     <div class="container "> 
+                         <h2> Guanacaste CR </h2>
+                     <h3> Playa Virador </h3>
+                     </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.980528058175!2d-84.03794158528237!3d9.93557787686643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e3aa66fa362b%3A0xf134cee2340078e2!2sStem%20Center%20Fid%C3%A9litas!5e0!3m2!1ses!2scr!4v1664412791019!5m2!1ses!2scr" width="580" height="375" style="border:0;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+
+    <img src="img/virador.jpeg" alt="equipo"  width="275" height="375" style="border:3;"> 
+                </div>
+                </article>
+                    </div>
+            </section>     
+        </center>
+          
+ <br><br>
+      
+           <aside>
+    <!-- Menú desplegable -->
+    <div class="menu">
+       &nbsp; <img src="/img/imgCR.png" height="80"/>
+    
+        <ul sec:authorize="!isAuthenticated()" class="navbar-nav ml-auto">                            
+                            <li class="nav" >
+                                <form method="POST" th:action="@{/login}" >
+                                    <a href="#" onclick="this.parentNode.submit();" >
+                                        <i></i> [[#{login.login}]]
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+       
+                        <ul sec:authorize="!isAuthenticated()" class="navbar-nav ml-auto">                            
+                            <li class="nav" >
+                                <form method="POST" th:action="@{/registro}" >
+                                    <a href="#" onclick="this.parentNode.submit();" >
+                                        <i></i>  [[#{registro.registro}]]
+                                    </a>
+                                </form>
+                            </li>
+                        </ul>
+       
+                    
+        <a href="/#">Inicio</a>
+        <a href="/detallecomp.html">Compra</a>   
+         <a href="/#">Carrito</a>   
+      <a href="#">Ofertas Especiales</a>
+      <div class="dropdown">
+      <a href="#">Reservas Naturales</a>
+      <div class="dropdown-content">
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+        </div>
+      </div>
+      <div class="dropdown">
+      <a href="#">Bosques</a> 
+      <div class="dropdown-content">
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+        </div>
+      </div>
+      <div class="dropdown">
+      <a href="#">Playas</a>
+      <div class="dropdown-content">
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#">5</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <a href="#">Tours Disponibles</a>
+        <div class="dropdown-content">
+          <a href="#">Alajuela</a>
+          <a href="#">San José</a>  
+          <a href="#">Guanacaste</a>
+          <a href="#">Puntarenas</a>
+          <a href="#">Limón</a>
+          <a href="#">San Carlos</a>
+        </div>
+      </div>
+        
+        <div class="dropdown">
+        <a href="#">Hospedaje</a>
+        <div class="dropdown-content">
+          <a href="#">Hotel</a>
+          <a href="#">Arbnb</a>  
+          <a href="#">Hostel</a>
+          <a href="#">Cabinas</a>
+          <a href="#">Camping</a>
+        </div>
+      </div>
+        
+        <div class="dropdown">
+        <a href="#">Restaurantes/Bar</a>
+        <div class="dropdown-content">
+          <a href="#">Alajuela</a>
+          <a href="#">San José</a>  
+          <a href="#">Guanacaste</a>
+          <a href="#">Puntarenas</a>
+          <a href="#">Limón</a>
+          <a href="#">San Carlos</a>
+        </div>
+      </div>
+        <a href="/ubicacion.html">Ubicación Biodivers...</a>
+        <a href="/ayuda.html">Ayuda</a>
+        </div>
+     </aside>
+
+     <center>                
+         <img src="img/logoUb.png"  height="80"/>
+             <footer th:fragment="footer" class=" text-white mt-5 p-1">
+            <div class="container">
+                <div class="col">
+                    <p class="lead text-center">&COPY; [[#{plantilla.derechos}]] |
+                        <a th:href="@{/(lang=es)}">ES</a> |
+                        <a th:href="@{/(lang=en)}">EN</a>
+                    </p>
+                </div>
+            </div>
+                 
+        </footer>
+ </center>
+    </body>
+</html>

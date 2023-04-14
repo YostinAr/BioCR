@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://wwww.thymeleaf.org" 
+      xmlns:sec="http://thymeleaft.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head">
+        <title>Examen 2</title>
+    </head>
+    <body>
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">   
+                        <button 
+                            type="button" 
+                            class="btn btn-primary btn-block" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#agregarcompra">
+                            <i class="fas fa-plus"></i> [[#{accion.agregar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="agregarcompra">
+            <div id="agregarcompra" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title" th:text="#{accion.agregar}">Agregar compra</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/compra/guardar}" th:object="${compra}"
+                              method="POST" class="was-validated">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="idcompra" th:text="#{compra.idcompra}">Id</label>
+                                    <input type="number" class="form-control" name="idcompra" required="true"/>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="modelo" th:text="#{compra.modelo}">Modelo</label>
+                                    <input type="text" class="form-control" name="modelo" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="precio" th:text="#{compra.precio}">Precio</label>
+                                    <input type="number" class="form-control" name="precio" required="true"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="piezascompra" th:text="#{compra.piezascompra}">Piezascompra</label>
+                                    <input type="number" class="form-control" name="piezascompra"/>
+                                </div>                                
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>        
+        <section th:fragment="listadocompras" id="compras">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{compra.titulo}]]</h4>
+                            </div>
+                            <div th:if="${compras != null and !compras.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th th:text="#{compra.idcompra}">Id</th>
+                                            <th th:text="#{compra.modelo}">Modelo</th>
+                                            <th th:text="#{compra.precio}">Precio</th>
+                                            <th th:text="#{compra.piezascompra}">Piezascompra;</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="compra : ${compras}">
+                                            <td>[[${compra.idcompra}]]</td>
+                                            <td>[[${compra.modelo}]]</td>
+                                            <td>[[${compra.precio}]]</td>
+                                            <td>[[${compra.piezascompra}]]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/compra/eliminar/}+${compra.idcompra}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-trash-can"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/compra/modificar/}+${compra.idcompra}"
+                                                   class="btn btn-success">
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${compras == null or compras.empty}">
+                                <span th:text="#{compra.no_mostrar}">Lista vacía</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">                        
+                        <div class="card text-center bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h3 th:text="#{compra.totalcompras}">Total compras</h3>
+                                <h4 class="fs-2">
+                                    <i class="fas fa-users"></i> [[${totalcompras}]]
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section th:fragment="editarcompra">            
+            <form method="POST"
+                  th:action="@{/compra/guardar}"
+                  th:object="${compra}"
+                  class="was-validated">
+                <input type="hidden" name="idcompra" th:field="*{idcompra}"/> 
+                <section th:replace="compra/fragmentoscompra :: botonesEditar"/> 
+                <div id="details"> 
+                    <div class="container"><div class="row">
+                            <div class="col"><div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.actualizar}]]</h4>
+                                    </div>
+                                    <div class="card-body">                                        
+                                        <div class="form-group">
+                                            <label for="modelo" th:text="#{compra.modelo}">Modelo </label>
+                                            <input type="text" class="form-control" name="modelo" th:field="*{modelo}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="precio" th:text="#{compra.precio}">Precio </label>
+                                            <input type="number"  class="form-control" name="precio" th:field="*{precio}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="piezascompra" th:text="#{compra.piezascompra}">piezascompra </label>
+                                            <input type="number"  class="form-control" name="piezascompra" th:field="*{piezascompra}"/>
+                                        </div>   
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section th:fragment="botonesEditar">
+            <div id="actions" class="py-4 mb-4 bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="d-grid col-md-2 mx-auto">
+                            <a th:href="@{/compra/listado}" class="btn btn-ligth btn-block">
+                                <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                            </a>
+                        </div>
+                        <div class="d-grid col-md-2 mx-auto">
+                            <button type="submit" class="btn btn-success btn-block">
+                                <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                            </button>
+                        </div>
+                        <div class="d-grid col-md-2 mx-auto">
+                            <a th:href="@{/compra/eliminar/}+${compra.idcompra}"
+                               class="btn btn-danger btn-block">
+                                <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://wwww.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/plantilla :: head">
+        <title>BioCR</title>
+    </head>
+    <style type="text/css">
+        body {
+			background-color: #F5F5DC; 
+			font-family: Arial, sans-serif;
+		}
+                .container {
+                        float: right;
+                      }
+                      .caja{
+                           width: 900px;
+                            height: 50px;
+                            background-color: #F5F5DC; 
+                            align: right;
+                      }      
+    </style>
+    <body>
+        <header th:replace="layout/plantilla :: header"/>
+        <aside th:replace="layout/plantilla :: aside"/>  
+        &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; 
+        
+        <center>
+        <section>
+        <div class="container ">            
+            <div class="caja">
+           <div class="row row-cols-4 py-3" 
+                th:if="${articulos != null and !articulos.empty}">
+                <div class="card" th:each="articulo : ${articulos}" >
+                    <img src="/img/virador.jpeg" alt=""/>
+                    <div class="card-body">
+                        <h5 class="card-title">[[${articulo.descripcion}]]</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-end">[[${new java.text.DecimalFormat('¢#,##0.00').format(articulo.precio)}]]</h6>
+                        <a class="card-link" th:href="@{/carrito/agregar/} + ${articulo.idArticulo}">[[#{articulo.comprar}]]</a>
+                        <p class="card-text">[[${articulo.detalle}]]</p>                        
+                    </div>
+                </div>                 
+            </div>
+                 </div>
+            <div th:if="${articulos == null or articulos.empty}"  th:text="#{articulo.no_mostrar}">
+                No tenemos lista de articulos que mostrar...
+            </div>
+        </div>
+            
+            &nbsp; &nbsp; &nbsp;&nbsp; 
+            </section>
+            </center>
+    </body>
+</html>
