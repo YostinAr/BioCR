@@ -1,21 +1,21 @@
 package com.tienda.service;
 
-import com.tienda.dao.ArticuloDao;
-import com.tienda.domain.Articulo;
+import com.tienda.domain.Lugar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.tienda.dao.LugarDao;
 
 @Service
-public class ArticuloServiceImpl implements ArticuloService {
+public class LugarServiceImpl implements LugarService {
     @Autowired
-    private ArticuloDao clienteDao;
+    private LugarDao clienteDao;
     
     @Override
     @Transactional(readOnly = true)
-   public List<Articulo> getArticulos(boolean activos) {
-        var lista = (List<Articulo>)clienteDao.findAll();
+   public List<Lugar> getLugares(boolean activos) {
+        var lista = (List<Lugar>)clienteDao.findAll();
         
         if (activos) {   lista.removeIf(e -> !e.isActivo());
         }
@@ -25,21 +25,21 @@ public class ArticuloServiceImpl implements ArticuloService {
   
     @Override
     @Transactional(readOnly = true)
-    public Articulo getArticulo(Articulo cliente) {
-        return clienteDao.findById(cliente.getIdArticulo()).orElse(null);
+    public Lugar getLugar(Lugar cliente) {
+        return clienteDao.findById(cliente.getIdLugar()).orElse(null);
     }
     
   
     @Override
     @Transactional
-    public void save(Articulo cliente){
+    public void save(Lugar cliente){
         clienteDao.save(cliente);
     }
     
     
     @Override
     @Transactional
-    public void delete(Articulo cliente){
+    public void delete(Lugar cliente){
         clienteDao.delete(cliente);
     }
 }

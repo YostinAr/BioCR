@@ -1,8 +1,8 @@
 package com.tienda.dao;
 
-import com.tienda.domain.Articulo;
+import com.tienda.domain.Lugar;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ArticuloDao extends CrudRepository<Articulo,Long> {
+public interface LugarDao extends CrudRepository<Lugar,Long> {
 }

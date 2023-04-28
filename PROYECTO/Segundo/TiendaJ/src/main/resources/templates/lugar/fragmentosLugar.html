@@ -15,7 +15,7 @@
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#agregarArticulo">
+                            data-bs-target="#agregarLugar">
                             <i class="fas fa-plus"></i> [[#{accion.agregar}]]
                         </button>
                     </div>
@@ -23,41 +23,41 @@
             </div>
         </section>
         
-        <section th:fragment="listadoArticulos" id="articulos">
+        <section th:fragment="listadoLugares" id="lugares">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
-                                <h4>[[#{articulo.titulo}]]</h4>
+                                <h4>[[#{lugar.titulo}]]</h4>
                             </div>
-                            <div th:if="${articulos != null and !articulos.empty}">
+                            <div th:if="${lugares != null and !lugares.empty}">
                                 <table class="table table-stryped">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>#</th>
-                                            <th th:text="#{articulo.descripcion}">Descripción</th>
-                                            <th th:text="#{articulo.precio}">Precio</th> 
-                                            <th th:text="#{articulo.existencias}">Existencias</th> 
-                                            <th th:text="#{articulo.activo}">Activo</th>
+                                            <th th:text="#{lugar.descripcion}">Descripción</th>
+                                            <th th:text="#{lugar.precio}">Precio</th> 
+                                            <th th:text="#{lugar.existencias}">Existencias</th> 
+                                            <th th:text="#{lugar.activo}">Activo</th>
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                        <tr th:each="articulo, contador : ${articulo}">
+                                        <tr th:each="lugar, contador : ${lugar}">
                                             <td>[[${contador.count}]]</td>
-                                            <td th:text=" ${articulo.descripcion}"></td>
-                                            <td th:text="${#numbers.formatDecimal(articulo.precio,3,2)}" ></td>
-                                            <td th:text=" ${articulo.existencias}"></td>
+                                            <td th:text=" ${lugar.descripcion}"></td>
+                                            <td th:text="${#numbers.formatDecimal(lugar.precio,3,2)}" ></td>
+                                            <td th:text=" ${lugar.existencias}"></td>
                                             <td class="text-end">[[${categoria.activo}]]</td>
                                            <td>
-                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/articulo/eliminar/}+${articulo.idArticulo}"
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/lugar/eliminar/}+${lugar.idLugar}"
                                                    class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                                                 </a>
                                             </td>
                                             <td>
-                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/articulo/modificar/}+${articulo.idArticulo}"
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/lugar/modificar/}+${lugar.idLugar}"
                                                    class="btn btn-success">
                                                     <i class="fas fa-pen"></i> [[#{accion.actualizar}]]
                                                 </a>
@@ -66,17 +66,17 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="text-center p-2" th:if="${articulos == null or articulos.empty}">
-                                <span th:text="#{articulo.no_mostrar}">Lista vacía</span>
+                            <div class="text-center p-2" th:if="${lugares == null or lugares.empty}">
+                                <span th:text="#{lugar.no_mostrar}">Lista vacía</span>
                             </div>
                         </div>
                     </div>
                        <div class="col-md-3">
                        <div class="card text-center bg-success text-white mb-3">
                             <div class="card-body">
-                                <h3 th:text="#{articulo.totalArticulo}">Total Articulos</h3>
+                                <h3 th:text="#{lugar.totalLugar}">Total Lugares</h3>
                                 <h4 class="display-4">
-                                    <i class="fas fa-users"></i> [[${totalArticulos}]]
+                                    <i class="fas fa-users"></i> [[${totalLugares}]]
                                 </h4>
                             </div>
                         </div>
@@ -85,34 +85,34 @@
             </div>
         </section>
                  
-        <section th:fragment="agregarArticulo">
-            <div id="agregarArticulo" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <section th:fragment="agregarLugar">
+            <div id="agregarLugar" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Articulo</h5>
+                            <h5 class="modal-title" th:text="#{accion.agregar}">Agregar Lugar</h5>
                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         
                         
-                        <form th:action="@{/articulo/guardar}" th:object="${articulo}"
+                        <form th:action="@{/lugar/guardar}" th:object="${lugar}"
                               method="POST" class="was-validated">
                             <div class="modal-group">
                                 <div class="form-group">
-                                    <label for="descripcion" th:text="#{articulo.descripcion}">Descripción:</label>
+                                    <label for="descripcion" th:text="#{lugar.descripcion}">Descripción:</label>
                                     <input type="text" name="descripcion" class="form-control"  required="true">
                                 </div>
                                     
                                 <div class="form-group">    
-                                    <label for="detalle" th:text="#{articulo.detalle}">Detalle:</label>
+                                    <label for="detalle" th:text="#{lugar.detalle}">Detalle:</label>
                                     <input type="text" name="detalle" class="form-control"  rows="6" cols="50" required="true">   
                                 </div>    
                                 <div class="form-group">
-                                    <label for="precio" th:text="#{articulo.precio}">Precio:</label>
+                                    <label for="precio" th:text="#{lugar.precio}">Precio:</label>
                                     <input type="number" name="precio" class="form-control"  required="true">
                                 </div>
                                 <div class="form-group">
-                                    <label for="existencias" th:text="#{articulo.existencias}">Existencias:</label>
+                                    <label for="existencias" th:text="#{lugar.existencias}">Existencias:</label>
                                     <input type="number" name="existencias" class="form-control"  required="true">
                                 </div>    
                                 <div class="form-group">
@@ -129,13 +129,13 @@
             </div>
         </section>
         
-        <section th:fragment="editarArticulo">            
+        <section th:fragment="editarLugar">            
             <form method="POST"
-                  th:action="@{/articulo/guardar}"
-                  th:object="${articulo}"
+                  th:action="@{/lugar/guardar}"
+                  th:object="${lugar}"
                   class="was-validated">
-                <input type="hidden" name="idArticulo" th:field="*{idArticulo}"/>
-                <section th:replace="articulo/fragmentosArticulo :: botonesEditar"/> 
+                <input type="hidden" name="idLugar" th:field="*{idLugar}"/>
+                <section th:replace="lugar/fragmentosLugar :: botonesEditar"/> 
                 <div id="details">
                     <div class="container">
                         <div class="row">
@@ -146,7 +146,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group">
-                                        <label for="categoria" th:text="#{articulo.categoria}">Categoria:</label>
+                                        <label for="categoria" th:text="#{lugar.categoria}">Categoria:</label>
                                         <select th:field="*{idCategoria}">
                                             <option th:each="categoria: ${categorias}"
                                                     th:value="${categoria.idCategoria}"
@@ -154,27 +154,27 @@
                                         </select>
                                         </div>
                                         <div class="form-group">
-                                          <label for="descripcion" th:text="#{articulo.descripcion}">Descripción:</label>
+                                          <label for="descripcion" th:text="#{lugar.descripcion}">Descripción:</label>
                                           <input type="text" class="form-control"  name="descripcion" th:field="*{descripcion}"/>
                                        </div>
                                         
                                         <div class="form-group">
-                                            <label for="detalle" th:text="#{articulo.detalle}">Detalle:</label>
+                                            <label for="detalle" th:text="#{lugar.detalle}">Detalle:</label>
                                             <textarea name="detalle" class="form-control" th:field="*{detalle}" />
                                         </div>
                                         
                                          <div class="form-group">
-                                            <label for="precio" th:text="#{articulo.precio}">Precio:</label>
+                                            <label for="precio" th:text="#{lugar.precio}">Precio:</label>
                                             <input type="number" name="precio"  class="form-control" th:field="*{precio}"/>
                                         </div>
                                         
                                         <div class="form-group">
-                                             <label for="existencias" th:text="#{articulo.existencias}">Existencias:</label>
+                                             <label for="existencias" th:text="#{lugar.existencias}">Existencias:</label>
                                              <input type="number" name="existencias" class="form-control" th:field="*{existencias}"/>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <label for="activa" th:text="#{articulo.activo}">Activo </label>
+                                            <label for="activa" th:text="#{lugar.activo}">Activo </label>
                                             <input type="checkbox" name="activo" class="form-control" th:field="*{activo}"/>
                                         </div>
                                                            
@@ -192,7 +192,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
-                            <a th:href="@{/articulo/listado}" class="btn btn-ligth btn-block">
+                            <a th:href="@{/lugar/listado}" class="btn btn-ligth btn-block">
                                 <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
                             </a>
                         </div>
@@ -202,7 +202,7 @@
                             </button>
                         </div>
                         <div class="col-md-3">
-                            <a th:href="@{/articulo/eliminar/}+${articulo.idArticulo}"
+                            <a th:href="@{/lugar/eliminar/}+${lugar.idLugar}"
                                class="btn btn-danger btn-block">
                                 <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                             </a>
